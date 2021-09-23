@@ -1,5 +1,6 @@
 <?php
 require('includes/db.php');
+require('includes/functions.php');
 
 ?>
 
@@ -32,9 +33,53 @@ require('includes/db.php');
           <div class="card-body">
             <h5 class="card-title"><?= $post['title'] ?></h5>
             <span class="badge bg-primary ">Posted on <?= date('F jS, Y', strtotime($post['created_at'])) ?></span>
-            <span class="badge bg-danger">Web Development</span>
+            <span class="badge bg-danger"><?= getCategory($db, $post['category_id']) ?></span>
             <div class="border-bottom mt-3"></div>
-            <img src="https://images.moneycontrol.com/static-mcnews/2020/04/stock-in-the-news-770x433.jpg" class="img-fluid mb-2 mt-2" alt="Responsive image">
+
+            <?php
+            $post_images = getImagesByPost($db, $post['id']);
+
+
+
+            ?>
+
+            <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+              <div class="carousel-inner">
+
+                <?php
+                $c = 1;
+                foreach ($post_images as $image) {
+                  if ($c > 1) {
+                    $sw = "";
+                  } else {
+                    $sw = "active";
+                  }
+                ?>
+                  <div class="carousel-item <?= $sw ?>">
+                    <img src="images/<?= $image['image'] ?>" class="d-block w-100" alt="...">
+                  </div>
+                <?php
+                  $c++;
+                }
+
+                ?>
+
+              </div>
+              <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+              </button>
+              <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+              </button>
+            </div>
+
+
+
+
+            <!-- <img src="https://images.moneycontrol.com/static-mcnews/2020/04/stock-in-the-news-770x433.jpg" class="img-fluid mb-2 mt-2" alt="Responsive image"> -->
+
             <p class="card-text"><?= $post['content'] ?></p>
             <a href="#" class="btn btn-primary">Share this post</a>
             <a href="#" class="btn btn-primary">Comment on this</a>
@@ -44,48 +89,41 @@ require('includes/db.php');
 
         <div>
           <h4>Related Posts</h4>
-          <div class="card mb-3" style="max-width: 700px;">
-            <div class="row g-0">
-              <div class="col-md-5" style="background-image: url('https://images.moneycontrol.com/static-mcnews/2020/04/stock-in-the-news-770x433.jpg');background-size: cover">
-                <!-- <img src="https://images.moneycontrol.com/static-mcnews/2020/04/stock-in-the-news-770x433.jpg" alt="..."> -->
-              </div>
-              <div class="col-md-7">
-                <div class="card-body">
-                  <h5 class="card-title">Card title</h5>
-                  <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                  <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+
+
+          <?php
+          $pquery = "SELECT *  FROM  posts WHERE category_id={$post['category_id']} ORDER BY id DESC";
+          $prun = mysqli_query($db, $pquery);
+          while ($rpost = mysqli_fetch_assoc($prun)) {
+            if ($rpost['id'] == $post_id) {
+              continue;
+            }
+
+          ?>
+
+            <div class="card mb-3" style="max-width: 700px;">
+              <div class="row g-0">
+                <div class="col-md-5" style="background-image: url('https://images.moneycontrol.com/static-mcnews/2020/04/stock-in-the-news-770x433.jpg');background-size: cover">
+                  <!-- <img src="https://images.moneycontrol.com/static-mcnews/2020/04/stock-in-the-news-770x433.jpg" alt="..."> -->
+                </div>
+                <div class="col-md-7">
+                  <div class="card-body">
+                    <h5 class="card-title"><?= $rpost['title'] ?></h5>
+                    <p class="card-text text-truncate"><?= $rpost['content'] ?></p>
+                    <p class="card-text"><small class="text-muted">Posted on <?= date('F jS, Y', strtotime($rpost['created_at'])) ?></small></p>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div class="card mb-3" style="max-width: 700px;">
-            <div class="row g-0">
-              <div class="col-md-5" style="background-image: url('https://images.moneycontrol.com/static-mcnews/2020/04/stock-in-the-news-770x433.jpg');background-size: cover">
-                <!-- <img src="https://images.moneycontrol.com/static-mcnews/2020/04/stock-in-the-news-770x433.jpg" alt="..."> -->
-              </div>
-              <div class="col-md-7">
-                <div class="card-body">
-                  <h5 class="card-title">Card title</h5>
-                  <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                  <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="card mb-3" style="max-width: 700px;">
-            <div class="row g-0">
-              <div class="col-md-5" style="background-image: url('https://images.moneycontrol.com/static-mcnews/2020/04/stock-in-the-news-770x433.jpg');background-size: cover">
-                <!-- <img src="https://images.moneycontrol.com/static-mcnews/2020/04/stock-in-the-news-770x433.jpg" alt="..."> -->
-              </div>
-              <div class="col-md-7">
-                <div class="card-body">
-                  <h5 class="card-title">Card title</h5>
-                  <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                  <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                </div>
-              </div>
-            </div>
-          </div>
+
+
+          <?php
+          }
+
+          ?>
+
+
+
         </div>
 
       </div>

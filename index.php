@@ -30,7 +30,12 @@ $result = ($page - 1) * $post_per_page;
       <div class="col-8">
 
         <?php
-        $postQuery = "SELECT * FROM posts LIMIT $result,$post_per_page";
+        if (isset($_GET['search'])) {
+          $keyword = $_GET['search'];
+          $postQuery = "SELECT * FROM posts WHERE title LIKE  '%$keyword%' ORDER BY id DESC LIMIT $result,$post_per_page";
+        } else {
+          $postQuery = "SELECT * FROM posts  ORDER BY  id DESC LIMIT $result,$post_per_page";
+        }
         $runPQ = mysqli_query($db, $postQuery);
         while ($post = mysqli_fetch_assoc($runPQ)) {
         ?>
@@ -62,7 +67,12 @@ $result = ($page - 1) * $post_per_page;
     </div>
     <?php
 
-    $q = "SELECT * FROM posts";
+    if (isset($_GET['search'])) {
+      $keyword = $_GET['search'];
+      $q = "SELECT * FROM posts WHERE title LIKE '%$keyword%'";
+    } else {
+      $q = "SELECT * FROM posts";
+    }
     $r = mysqli_query($db, $q);
     $total_posts = mysqli_num_rows($r);
     $total_pages = ceil($total_posts / $post_per_page);
@@ -86,12 +96,16 @@ $result = ($page - 1) * $post_per_page;
         ?>
 
         <li class="page-item <?= $switch ?>">
-          <a class="page-link" href="?page<?= $page - 1 ?>" tabindex="-1" aria-disabled="true">Previous</a>
+          <a class="page-link" href="?<?php if (isset($_GET['search'])) {
+                                        echo "search=$keyword&";
+                                      } ?>page<?= $page - 1 ?>" tabindex="-1" aria-disabled="true">Previous</a>
         </li>
         <?php
         for ($opage = 1; $opage <= $total_pages; $opage++) {
         ?>
-          <li class="page-item"><a class="page-link" href="?page=<?= $opage ?>"><?= $opage ?></a></li>
+          <li class="page-item"><a class="page-link" href="?<?php if (isset($_GET['search'])) {
+                                                              echo "search=$keyword&";
+                                                            } ?>page=<?= $opage ?>"><?= $opage ?></a></li>
 
         <?php
         }
