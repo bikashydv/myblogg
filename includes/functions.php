@@ -19,3 +19,23 @@ function getImagesByPost($db, $post_id)
     }
     return $data;
 }
+
+function getSubMenu($db, $menu_id)
+{
+    $query = "SELECT * FROM submenu WHERE parent_menu_id=$menu_id";
+    $run = mysqli_query($db, $query);
+    $data = array();
+
+    while ($d = mysqli_fetch_assoc($run)) {
+        $data[] = $d;
+    }
+    return $data;
+}
+
+
+function getSubMenuNo($db, $menu_id)
+{
+    $query = "SELECT * FROM submenu WHERE parent_menu_id=$menu_id";
+    $run = mysqli_query($db, $query);
+    return mysqli_num_rows($run);
+}
