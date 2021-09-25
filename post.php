@@ -81,9 +81,43 @@ require('includes/functions.php');
             <!-- <img src="https://images.moneycontrol.com/static-mcnews/2020/04/stock-in-the-news-770x433.jpg" class="img-fluid mb-2 mt-2" alt="Responsive image"> -->
 
             <p class="card-text"><?= $post['content'] ?></p>
-            <a href="#" class="btn btn-primary">Share this post</a>
-            <a href="#" class="btn btn-primary">Comment on this</a>
+            <div class="addthis_inline_share_toolbox"></div>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+              Comment on this
+            </button>
 
+          </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add your comment</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+
+                <form action="includes/add_comment.php" method="post">
+                  <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Name</label>
+                    <input type="name" class="form-control" name="name" id="exampleInputEmail1" aria-describedby="emailHelp">
+                    <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                  </div>
+                  <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">Comment</label>
+                    <input type="text" class="form-control" name="comment" id="exampleInputPassword1">
+                  </div>
+                  <input type="hidden" name="post_id" value="<?= $post_id ?>">
+                  <button type="submit" name="addcomment" class="btn btn-primary">Add Comment</button>
+                </form>
+              </div>
+              <div class="modal-footer">
+
+                <!-- <button type="button" class="btn btn-primary">Add Comment</button> -->
+              </div>
+            </div>
           </div>
         </div>
 
@@ -100,21 +134,22 @@ require('includes/functions.php');
             }
 
           ?>
-
-            <div class="card mb-3" style="max-width: 700px;">
-              <div class="row g-0">
-                <div class="col-md-5" style="background-image: url('https://images.moneycontrol.com/static-mcnews/2020/04/stock-in-the-news-770x433.jpg');background-size: cover">
-                  <!-- <img src="https://images.moneycontrol.com/static-mcnews/2020/04/stock-in-the-news-770x433.jpg" alt="..."> -->
-                </div>
-                <div class="col-md-7">
-                  <div class="card-body">
-                    <h5 class="card-title"><?= $rpost['title'] ?></h5>
-                    <p class="card-text text-truncate"><?= $rpost['content'] ?></p>
-                    <p class="card-text"><small class="text-muted">Posted on <?= date('F jS, Y', strtotime($rpost['created_at'])) ?></small></p>
+            <a href="post.php?id=<?= $rpost['id'] ?>" style="text-decoration:none;color:black">
+              <div class="card mb-3" style="max-width: 700px;">
+                <div class="row g-0">
+                  <div class="col-md-5" style="background-image: url('https://images.moneycontrol.com/static-mcnews/2020/04/stock-in-the-news-770x433.jpg');background-size: cover">
+                    <!-- <img src="https://images.moneycontrol.com/static-mcnews/2020/04/stock-in-the-news-770x433.jpg" alt="..."> -->
+                  </div>
+                  <div class="col-md-7">
+                    <div class="card-body">
+                      <h5 class="card-title"><?= $rpost['title'] ?></h5>
+                      <p class="card-text text-truncate"><?= $rpost['content'] ?></p>
+                      <p class="card-text"><small class="text-muted">Posted on <?= date('F jS, Y', strtotime($rpost['created_at'])) ?></small></p>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
+            </a>
 
 
           <?php
@@ -134,6 +169,7 @@ require('includes/functions.php');
     <?php include_once('includes/footer.php') ?>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-614ead2e7af5af04"></script>
 </body>
 
 </html>

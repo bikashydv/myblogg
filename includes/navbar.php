@@ -1,6 +1,6 @@
 <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
-        <a class="navbar-brand" href="#">Navbar scroll</a>
+        <a class="navbar-brand" href="#">Blog</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -14,7 +14,7 @@
                     if (!$no) {
                 ?>
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="<?= $menu['action'] ?>"> <?= $menu['name'] ?></a>
+                            <a class="nav-link " aria-current="page" href="<?= $menu['action'] ?>"> <?= $menu['name'] ?></a>
                         </li>
                     <?php
                     } else {
