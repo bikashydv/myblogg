@@ -80,7 +80,7 @@ require('includes/functions.php');
 
             <!-- <img src="https://images.moneycontrol.com/static-mcnews/2020/04/stock-in-the-news-770x433.jpg" class="img-fluid mb-2 mt-2" alt="Responsive image"> -->
 
-            <p class="card-text"><?= $post['content'] ?></p>
+            <p class="card-text text-truncate"><?= $post['content'] ?></p>
             <div class="addthis_inline_share_toolbox"></div>
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
               Comment on this
@@ -134,22 +134,25 @@ require('includes/functions.php');
             }
 
           ?>
-            <a href="post.php?id=<?= $rpost['id'] ?>" style="text-decoration:none;color:black">
-              <div class="card mb-3" style="max-width: 700px;">
-                <div class="row g-0">
-                  <div class="col-md-5" style="background-image: url('https://images.moneycontrol.com/static-mcnews/2020/04/stock-in-the-news-770x433.jpg');background-size: cover">
-                    <!-- <img src="https://images.moneycontrol.com/static-mcnews/2020/04/stock-in-the-news-770x433.jpg" alt="..."> -->
-                  </div>
-                  <div class="col-md-7">
-                    <div class="card-body">
-                      <h5 class="card-title"><?= $rpost['title'] ?></h5>
-                      <p class="card-text text-truncate"><?= $rpost['content'] ?></p>
-                      <p class="card-text"><small class="text-muted">Posted on <?= date('F jS, Y', strtotime($rpost['created_at'])) ?></small></p>
+            <div class="card mb-3" style="max-width: 800px;">
+              <a class="card-text text-truncate" href="post.php?id=<?= $rpost['id'] ?>" style="text-decoration:none;color:black">
+
+                <div class="card mb-3" style="max-width: 700px;">
+                  <div class="row g-0">
+                    <div class="col-md-5" style="background-image: url('images/<?= getPostThumb($db, $post['id']) ?>');background-size: cover">
+                      <!-- <img src="https://images.moneycontrol.com/static-mcnews/2020/04/stock-in-the-news-770x433.jpg" alt="..."> -->
+                    </div>
+                    <div class="col-md-7">
+                      <div class="card-body">
+                        <h5 class="card-title"><?= $rpost['title'] ?></h5>
+                        <p class="card-text text-truncate"><?= $rpost['content'] ?></p>
+                        <p class="card-text "><small class="text-muted">Posted on <?= date('F jS, Y', strtotime($rpost['created_at'])) ?></small></p>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </a>
+              </a>
+            </div>
 
 
           <?php
