@@ -2,6 +2,12 @@
 require('includes/db.php');
 include('includes/functions.php');
 
+// echo "<pre>";
+// print_r($_SERVER);
+// die();
+
+
+
 if (isset($_GET['page'])) {
   $page = $_GET['page'];
 } else {
@@ -44,6 +50,8 @@ $result = ($page - 1) * $post_per_page;
           <div class="card mb-3" style="max-width: 800px;">
 
             <a class="card-text text-truncate" href="post.php?id=<?= $post['id'] ?>" style="text-decoration:none;color:black">
+
+
 
               <div class="row g-0">
                 <div class="col-md-5" style="background-image: url('images/<?= getPostThumb($db, $post['id']) ?>');background-size: cover">

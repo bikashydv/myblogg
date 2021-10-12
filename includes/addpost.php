@@ -1,10 +1,13 @@
 <?php
 require('db.php');
+require('../includes/functions.php');
+$admin = getAdminInfo($db, $_SESSION['email']);
 if (isset($_POST['addpost'])) {
     $ptitle = mysqli_real_escape_string($db, $_POST['post_title']);
     $pcontent = mysqli_real_escape_string($db, $_POST['post_content']);
     $cid = $_POST['post_category'];
-    $query = "INSERT INTO posts (title,content,category_id) VALUES('$ptitle','$pcontent',$cid)";
+    $author = $admin['full_name'];
+    $query = "INSERT INTO posts (title,content,category_id,author) VALUES('$ptitle','$pcontent',$cid,'$author')";
     $run = mysqli_query($db, $query);
     $post_id = mysqli_insert_id($db);
     echo '<PRE>';

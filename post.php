@@ -23,6 +23,8 @@ require('includes/functions.php');
       <div class="col-8">
 
         <?php
+
+
         $post_id = $_GET['id'];
         $postQuery = "SELECT * FROM posts WHERE id=$post_id";
         $runPQ = mysqli_query($db, $postQuery);
@@ -34,6 +36,7 @@ require('includes/functions.php');
             <h5 class="card-title"><?= $post['title'] ?></h5>
             <span class="badge bg-primary ">Posted on <?= date('F jS, Y', strtotime($post['created_at'])) ?></span>
             <span class="badge bg-danger"><?= getCategory($db, $post['category_id']) ?></span>
+            <span class="badge bg-success author"><i class="fas fa-user-edit"> <?= $post['author']; ?></i></span>
             <div class="border-bottom mt-3"></div>
 
             <?php
@@ -80,7 +83,7 @@ require('includes/functions.php');
 
             <!-- <img src="https://images.moneycontrol.com/static-mcnews/2020/04/stock-in-the-news-770x433.jpg" class="img-fluid mb-2 mt-2" alt="Responsive image"> -->
 
-            <p class="card-text text-truncate"><?= $post['content'] ?></p>
+            <p class="card-text"><?= $post['content'] ?></p>
             <div class="addthis_inline_share_toolbox"></div>
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
               Comment on this
@@ -153,6 +156,7 @@ require('includes/functions.php');
                 </div>
               </a>
             </div>
+            .
 
 
           <?php
@@ -173,6 +177,7 @@ require('includes/functions.php');
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
     <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-614ead2e7af5af04"></script>
+    <script src="https://use.fontawesome.com/1c30407618.js"></script>
 </body>
 
 </html>
